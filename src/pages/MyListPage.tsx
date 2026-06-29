@@ -48,7 +48,7 @@ export function MyListPage() {
             </p>
             <Link
               to="/"
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-sm"
+              className="mt-4 flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors shadow-sm"
             >
               <ArrowLeft className="w-5 h-5" />
               Back to Search

@@ -34,7 +34,7 @@ export function Layout({ children, title }: LayoutProps) {
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-5xl mx-auto px-4 py-8 flex flex-col items-center">
+      <main className="max-w-5xl mx-auto px-6 py-8">
         {title && <h1 className="text-3xl font-extrabold mb-8 text-center">{title}</h1>}
         {children}
       </main>
