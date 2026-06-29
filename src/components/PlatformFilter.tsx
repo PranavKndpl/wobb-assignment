@@ -1,5 +1,6 @@
 import type { Platform } from "@/types";
 import { PLATFORMS, getPlatformLabel } from "@/utils/dataHelpers";
+import { SearchBar } from "./SearchBar";
 
 interface PlatformFilterProps {
   selected: Platform;
@@ -30,13 +31,10 @@ export function PlatformFilter({
           </button>
         ))}
       </div>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        placeholder="Search by username or name..."
-        className="w-full max-w-md border px-3 py-2 rounded"
-      />
+
+      <div className="flex justify-center">
+        <SearchBar value={searchQuery} onChange={onSearchChange} />
+      </div>
     </div>
   );
 }
