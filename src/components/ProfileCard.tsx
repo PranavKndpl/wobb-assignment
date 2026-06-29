@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Users, UserPlus, UserMinus } from "lucide-react";
 import type { Platform, UserProfileSummary } from "@/types";
 import { VerifiedBadge } from "./VerifiedBadge";
-import { useProfileStore } from "@/store/useProfileStore"; 
+import { useProfileStore } from "@/store/useProfileStore";
 
 interface ProfileCardProps {
   profile: UserProfileSummary;
@@ -11,9 +13,9 @@ interface ProfileCardProps {
 }
 
 function formatFollowersLocal(count: number) {
-  if (count >= 1000000) return (count / 1000000).toFixed(1) + "M followers";
-  if (count >= 1000) return (count / 1000).toFixed(1) + "K followers";
-  return count + " followers";
+  if (count >= 1000000) return (count / 1000000).toFixed(1) + "M";
+  if (count >= 1000) return (count / 1000).toFixed(1) + "K";
+  return count.toString();
 }
 
 export function ProfileCard({
@@ -23,9 +25,7 @@ export function ProfileCard({
   onProfileClick,
 }: ProfileCardProps) {
   const navigate = useNavigate();
-  
   const { savedProfiles, addProfile, removeProfile } = useProfileStore();
-  
   const isSaved = savedProfiles.some((p) => p.username === profile.username);
 
   const handleClick = () => {
@@ -34,7 +34,7 @@ export function ProfileCard({
   };
 
   const handleListAction = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent the card click from firing
+    e.stopPropagation();
     if (isSaved) {
       removeProfile(profile.username);
     } else {
@@ -43,31 +43,55 @@ export function ProfileCard({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.01 }}
+      transition={{ duration: 0.2 }}
       onClick={handleClick}
-      className="flex items-center gap-3 p-3 border border-gray-300 mb-2 cursor-pointer hover:bg-gray-50 w-[700px]"
+      className="group flex items-center gap-4 p-4 mb-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all w-full max-w-2xl"
       data-search={searchQuery}
     >
-      <img src={profile.picture} className="w-12 h-12 rounded-full" alt={profile.username} />
-      <div className="text-left flex-1">
-        <div className="font-bold">
+      <img 
+        src={profile.picture} 
+        alt={profile.username} 
+        className="w-14 h-14 rounded-full object-cover border-2 border-gray-100 dark:border-gray-700" 
+      />
+      
+      <div className="flex-1 text-left">
+        <div className="flex items-center text-lg font-bold text-gray-900 dark:text-gray-100">
           @{profile.username}
           <VerifiedBadge verified={profile.is_verified} />
         </div>
-        <div className="text-sm text-gray-600">{profile.fullname}</div>
-        <div className="text-sm">{formatFollowersLocal(profile.followers)}</div>
+        <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          {profile.fullname}
+        </div>
+        <div className="flex items-center gap-1.5 mt-1 text-sm text-gray-600 dark:text-gray-300">
+          <Users className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+          <span>{formatFollowersLocal(profile.followers)} followers</span>
+        </div>
       </div>
       
       <button
         onClick={handleListAction}
-        className={`px-3 py-1 text-sm rounded cursor-pointer transition-colors ${
+        className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-colors ${
           isSaved 
-            ? "bg-red-100 text-red-600 hover:bg-red-200" 
-            : "bg-blue-600 text-white hover:bg-blue-700"
+            ? "bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40" 
+            : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
         }`}
       >
-        {isSaved ? "Remove" : "Add to List"}
+        {isSaved ? (
+          <>
+            <UserMinus className="w-4 h-4" />
+            <span>Remove</span>
+          </>
+        ) : (
+          <>
+            <UserPlus className="w-4 h-4" />
+            <span>Add</span>
+          </>
+        )}
       </button>
-    </div>
+    </motion.div>
   );
 }
