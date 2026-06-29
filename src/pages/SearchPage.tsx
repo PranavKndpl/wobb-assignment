@@ -1,51 +1,77 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { PlatformFilter } from "@/components/PlatformFilter";
 import { ProfileList } from "@/components/ProfileList";
 import { extractProfiles, filterProfiles } from "@/utils/dataHelpers";
-import type { Platform } from "@/types";
+import { useProfileStore } from "@/store/useProfileStore";
 
 export function SearchPage() {
-  const [platform, setPlatform] = useState<Platform>("instagram");
-  const [searchQuery, setSearchQuery] = useState("");
+  const {
+    currentPlatform,
+    setPlatform,
+    searchQuery,
+    setSearchQuery,
+    searchScrollY,
+    setSearchScrollY,
+  } = useProfileStore();
 
-  const allProfiles = extractProfiles(platform);
+  const allProfiles = extractProfiles(currentPlatform);
   const filtered = filterProfiles(allProfiles, searchQuery);
 
-  const handleProfileClick = (username: string) => {
-    console.log("Navigating to profile:", username);
-  };
+  
+   // Save scroll position 
+  useEffect(() => {
+    const handleScroll = () => {
+      setSearchScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [setSearchScrollY]);
+
+  
+   // Restore scroll 
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo(0, searchScrollY);
+      });
+    });
+  }, []);
 
   return (
     <Layout title="Find Influencers">
       <div className="text-center mb-4">
-        <p className="text-gray-500 text-sm">
+        <p className="text-sm text-gray-500">
           Browse top creators across social platforms
         </p>
       </div>
 
       <PlatformFilter
-        selected={platform}
-        onChange={(p) => {
-          setPlatform(p);
+        selected={currentPlatform}
+        onChange={(platform) => {
+          setPlatform(platform);
           setSearchQuery("");
         }}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
 
-      {/* Your wrapper fix to prevent margin collapse issues */}
       <div className="mb-4">
         <p className="text-sm font-medium text-gray-400 dark:text-gray-500">
-          Showing {filtered.length} of {allProfiles.length} on {platform}
+          Showing {filtered.length} of {allProfiles.length} on{" "}
+          {currentPlatform}
         </p>
       </div>
 
       <ProfileList
         profiles={filtered}
-        platform={platform}
+        platform={currentPlatform}
         searchQuery={searchQuery}
-        onProfileClick={handleProfileClick}
+        onProfileClick={() => {}}
       />
     </Layout>
   );
