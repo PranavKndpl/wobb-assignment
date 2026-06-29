@@ -4,6 +4,7 @@ import { Users, UserPlus, UserMinus } from "lucide-react";
 import type { Platform, UserProfileSummary } from "@/types";
 import { VerifiedBadge } from "./VerifiedBadge";
 import { useProfileStore } from "@/store/useProfileStore";
+import { Avatar } from "./Avatar";
 
 interface ProfileCardProps {
   profile: UserProfileSummary;
@@ -52,10 +53,10 @@ export function ProfileCard({
       className="group flex items-center gap-4 p-4 mb-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md cursor-pointer transition-all w-full max-w-2xl"
       data-search={searchQuery}
     >
-      <img 
+      <Avatar 
         src={profile.picture} 
         alt={profile.username} 
-        className="w-14 h-14 rounded-full object-cover border-2 border-gray-100 dark:border-gray-700" 
+        className="w-14 h-14 rounded-full object-cover border-2 border-gray-100 dark:border-gray-700 shrink-0" 
       />
       
       <div className="flex-1 text-left">

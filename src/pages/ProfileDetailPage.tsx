@@ -82,10 +82,16 @@ export function ProfileDetailPage() {
   if (!profileData) {
     return (
       <Layout title={`@${username}`}>
-        <div className="text-center py-20">
-          <p className="text-red-500 mb-4 font-medium">Could not load profile details for {username}</p>
-          <Link to="/" className="text-blue-600 hover:underline flex items-center justify-center gap-2">
-            <ArrowLeft className="w-4 h-4" /> Back to search
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+            <Users className="w-8 h-8 text-gray-400" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Profile Data Unavailable</h2>
+          <p className="text-gray-500 dark:text-gray-400 max-w-md mb-6">
+            Detailed analytics for <strong>@{username}</strong> are not included in the local mock data set. Try viewing Cristiano Ronaldo or MrBeast instead.
+          </p>
+          <Link to="/" className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors">
+            <ArrowLeft className="w-5 h-5" /> Back to Search
           </Link>
         </div>
       </Layout>
