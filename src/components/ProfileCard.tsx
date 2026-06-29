@@ -11,7 +11,7 @@ interface ProfileCardProps {
 
 function formatFollowersLocal(count: number) {
   if (count >= 1000000) return (count / 1000000).toFixed(1) + "M followers";
-  if (count >= 1000) return (count / 1000).toFixed(0) + "K followers";
+  if (count >= 1000) return (count / 1000).toFixed(1) + "K followers";
   return count + " followers";
 }
 

@@ -23,9 +23,17 @@ export function filterProfiles(
   query: string
 ): UserProfileSummary[] {
   if (!query) return profiles;
+  
+  const lowerQuery = query.toLowerCase();
+  
   return profiles.filter((p) => {
-    const matchUsername = p.username.includes(query);
-    const matchFullname = p.fullname.toLowerCase().includes(query.toLowerCase());
+    // Defensively handle missing data using empty string fallbacks
+    const safeUsername = p.username || "";
+    const safeFullname = p.fullname || "";
+
+    const matchUsername = safeUsername.toLowerCase().includes(lowerQuery);
+    const matchFullname = safeFullname.toLowerCase().includes(lowerQuery);
+    
     return matchUsername || matchFullname;
   });
 }
