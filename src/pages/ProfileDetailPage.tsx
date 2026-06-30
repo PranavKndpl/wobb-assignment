@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
   ArrowLeft, ExternalLink, Users, Activity, 
@@ -38,9 +38,7 @@ const MetricCard = ({ icon, label, value }: { icon: React.ReactNode, label: stri
 );
 
 export function ProfileDetailPage() {
-  const { username } = useParams<{ username: string }>();
-  const [searchParams] = useSearchParams();
-  const platform = searchParams.get("platform") || "unknown";
+  const { platform, username } = useParams<{ platform: string; username: string }>();
   
   const [profileData, setProfileData] = useState<ProfileDetailResponse | null>(null);
   const [loaded, setLoaded] = useState(false);
@@ -135,7 +133,7 @@ export function ProfileDetailPage() {
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center md:justify-start">
                 <button
                   onClick={() => isSaved ? removeProfile(user.username) : addProfile(user)}
-                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all w-full sm:w-auto ${
+                  className={`mt-4 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold transition-all w-full sm:w-auto ${
                     isSaved 
                       ? "bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400" 
                       : "bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 shadow-lg"
@@ -149,7 +147,7 @@ export function ProfileDetailPage() {
                     href={user.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 transition-all w-full sm:w-auto"
+                    className="mt-4 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 transition-all w-full sm:w-auto"
                   >
                     <ExternalLink className="w-5 h-5" /> View Profile
                   </a>

@@ -31,7 +31,7 @@ export function ProfileCard({
 
   const handleClick = () => {
     if (onProfileClick) onProfileClick(profile.username);
-    navigate(`/profile/${profile.username}?platform=${platform}`);
+    navigate(`/profile/${platform}/${profile.username}`);
   };
 
   const handleListAction = (e: React.MouseEvent) => {

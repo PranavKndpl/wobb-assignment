@@ -1,6 +1,7 @@
 export type Platform = "instagram" | "youtube" | "tiktok";
 
 export interface UserProfileSummary {
+  platform: any;
   user_id: string;
   username: string;
   url: string;

@@ -75,7 +75,7 @@ export function MyListPage() {
                 />
                 <div className="flex-1 text-center sm:text-left w-full">
                   <Link
-                    to={`/profile/${profile.username}`}
+                    to={`/profile/${profile.platform}/${profile.username}`}
                     className="flex items-center justify-center sm:justify-start gap-1 text-lg font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     @{profile.username}
