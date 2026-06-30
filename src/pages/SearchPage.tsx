@@ -61,9 +61,8 @@ export function SearchPage() {
       />
 
       <div className="mb-4">
-        <p className="text-sm font-medium text-gray-400 dark:text-gray-500">
-          Showing {filtered.length} of {allProfiles.length} on{" "}
-          {currentPlatform}
+        <p aria-live="polite" className="text-sm font-medium text-gray-400 dark:text-gray-500">
+          Showing {filtered.length} of {allProfiles.length} on {currentPlatform}
         </p>
       </div>
 

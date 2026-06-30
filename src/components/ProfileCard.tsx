@@ -74,6 +74,7 @@ export function ProfileCard({
       </div>
       
       <button
+        aria-label={isSaved ? `Remove ${profile.username} from list` : `Add ${profile.username} to list`}
         onClick={handleListAction}
         className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-colors ${
           isSaved 

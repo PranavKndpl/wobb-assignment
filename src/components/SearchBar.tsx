@@ -14,6 +14,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search influencers by name or username..."
+        aria-label="Search influencers by name or username"
       />
     </div>
   );
