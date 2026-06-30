@@ -4,9 +4,9 @@ import tiktokData from "@/assets/data/search/tiktok.json";
 import type { Platform, SearchData, UserProfileSummary } from "@/types";
 
 const platformData: Record<Platform, SearchData> = {
-  instagram: instagramData as SearchData,
-  youtube: youtubeData as SearchData,
-  tiktok: tiktokData as SearchData,
+  instagram: instagramData as unknown as SearchData,
+  tiktok: tiktokData as unknown as SearchData,
+  youtube: youtubeData as unknown as SearchData,
 };
 
 export function getSearchData(platform: Platform): SearchData {

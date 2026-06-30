@@ -11,11 +11,16 @@ export async function loadProfileByUsername(
   const loader = profileModules[path];
 
   if (!loader) {
+    console.warn(`Profile loader: No file found for ${path}`);
     return null;
   }
 
-  const result = await loader();
-  const data =
-    (result as { default?: ProfileDetailResponse }).default ?? result;
-  return data as ProfileDetailResponse;
+  try {
+    const result = await loader();
+    const data = (result as unknown as { default: ProfileDetailResponse }).default || result;
+    return data;
+  } catch (error) {
+    console.error("Failed to load profile:", error);
+    return null;
+  }
 }
