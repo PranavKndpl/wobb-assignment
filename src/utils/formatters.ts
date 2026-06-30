@@ -8,7 +8,7 @@ export function formatFollowers(count: number): string {
   return count.toString();
 }
 
-export function formatEngagementRate(rate: number | undefined): string {
-  if (rate === undefined) return "N/A";
-  return (rate * 100).toFixed(2) + "%";
+export function formatEngagementRate(rate: number) {
+  if (rate === 0) return '0%'; // Explicitly handle 0
+  return (rate * 100).toFixed(2) + '%';
 }
