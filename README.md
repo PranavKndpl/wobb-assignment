@@ -1,5 +1,7 @@
 # Influencer Search App
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-blue?style=for-the-badge)](https://wobb-assignment-xi.vercel.app/)
+
 A React + Vite + Tailwind app for browsing top creators across Instagram, TikTok, and YouTube.
 
 ## What Changed
